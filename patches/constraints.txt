@@ -1,0 +1,10 @@
+# Exact versions of everything the image build installs on top of the NGC base (pip freeze of the built image minus
+# the base image's own packages), so a rebuild gets the same packages. Regenerate after a deliberate upgrade.
+annotated-doc==0.0.7
+av==18.1.0
+hf-xet==1.8.0
+huggingface_hub==1.33.0
+shellingham==1.5.4
+transformers==5.24.1
+typer==0.29.2
+xgrammar==0.2.8

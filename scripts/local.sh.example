@@ -10,7 +10,7 @@ MASTER_ADDR=10.100.0.2
 SOCKET_IFNAME=ring0
 
 # The image tag to run. PULL=0: never fetch a prebuilt image; scripts/prepare.sh builds it here from patches/.
-IMAGE=tensorfold-glm53:v0.6.0-tp4
+IMAGE=glm53-flash-tensorfold:local
 PULL=0
 # The model id the server reports.
 SERVED_NAME=GLM-5.3-Flash-EXL3-TP4

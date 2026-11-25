@@ -69,12 +69,14 @@ case "$MODEL_ID" in
 esac
 MODEL_REVISION="${MODEL_REVISION-$_rev}"
 TF_VERSION="${TF_VERSION:-v0.6.0}"
+# The commit the image is built from: v0.6.0 as it was when this recipe was adopted. A tag can be moved, a commit cannot.
+TF_COMMIT="${TF_COMMIT:-c4646171139ee8a3c38103eaa1699dad226ec12b}"
 TF_REPO="${TF_REPO:-https://github.com/ashhart/TensorFold.git}"
-BASE_IMAGE="${BASE_IMAGE:-nvcr.io/nvidia/pytorch:26.07-py3}"
+BASE_IMAGE="${BASE_IMAGE:-nvcr.io/nvidia/pytorch:26.07-py3@sha256:2140e699b3beaf7f96a0081fd9c9406bc3832b435cdb60dfa2d261f7d2f34a1c}"   # by digest
 IMAGE="${IMAGE:-tensorfold-glm53:${TF_VERSION}}"
 # pip packages the image adds on top of TensorFold (av: video input; xgrammar: response_format / structured outputs);
 # they are part of the image's hash, so a change rebuilds it like a patch does
-IMAGE_EXTRAS="av==18.1.0 xgrammar>=0.2.8,<0.3"
+IMAGE_EXTRAS="av==18.1.0 xgrammar==0.2.8"
 image_hash() { (cat patches/*.patch 2>/dev/null; echo "$IMAGE_EXTRAS") | sha256sum | cut -c1-12; }
 GHCR_IMAGE="${GHCR_IMAGE:-ghcr.io/miaai-lab/glm-5.3-flash-exl3-2x-dgx-sparks-tensorfold}"
 # The published image of this release's patches, pinned: prepare.sh pulls it by digest (a tag can be moved, a digest
