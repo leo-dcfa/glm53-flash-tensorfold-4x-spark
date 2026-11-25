@@ -1,0 +1,17 @@
+# Site settings for a four-node switchless ring. Copy to scripts/local.sh (git-ignored) and edit.
+#
+# Workers in ring order from the head: WORKER and WORKER3 are the head's two neighbours, WORKER2 is the node across.
+WORKER=user@10.100.200.1      # rank 1, a neighbour: its address on the cable it shares with the head
+WORKER2=user@10.100.0.3       # rank 2, across the ring: an address routed through a neighbour
+WORKER3=user@10.100.210.4     # rank 3, the other neighbour: its address on the cable it shares with the head
+
+# Where every rank's bootstrap (rendezvous, NCCL socket) runs: an address and interface all four can reach.
+MASTER_ADDR=10.100.0.2
+SOCKET_IFNAME=ring0
+
+# The image tag to run. PULL=0: never fetch a prebuilt image; scripts/prepare.sh builds it here from patches/.
+IMAGE=tensorfold-glm53:v0.6.0-tp4
+PULL=0
+# The model id the server reports.
+SERVED_NAME=GLM-5.3-Flash-EXL3-TP4
+# KV_POOL_GIB (32), PARALLEL (8), COMM (roce, forced by start-tp4-switchless.sh) and DRAFTER (dflash2) keep the defaults.
